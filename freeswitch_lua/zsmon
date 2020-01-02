@@ -1,0 +1,37 @@
+#!/bin/bash
+
+echo -e "\033[2J"
+echo -e "\033[2;0H"
+echo -e "\033[30C-------------zsitsms server monitor-------------"
+echo -e "\033[30C        ITEM            |    CURRENT  |       MAX     "
+echo -e "\033[30C zsitsms tcp connects   |             |               "
+echo -e "\033[30C zsidms tcp connects    |             |               "
+echo -e "\033[30C freeswitch call count  |             |               "
+
+zstcps=0
+max_zstcps=0
+zdtcps=0
+max_zdtcps=0
+fscalls=0
+max_fscalls=0
+
+while :
+do
+    zstcps=`netstat -nt |  grep 118.122.250.208:8086| wc -l`
+    if  [ $[zstcps] -gt $[max_zstcps] ]   
+	then 
+		max_zstcps=$zstcps; 
+		
+	fi 
+	zdtcps=`netstat -nt |  grep 112.74.96.208| wc -l`
+	if  [ $[zdtcps] -gt $[max_zdtcps] ] ; then max_zdtcps=$zdtcps; fi
+    fscalls=`/usr/local/freeswitch/bin/fs_cli -P 8024 -p Clue1234 -x "show calls count"|grep total|sed "s/[^0-9]//g"`
+    if  [ $[fscalls] -gt $[max_fscalls] ] ; then max_fscalls=$fscalls; fi	
+	echo -e "\033[5;56H$zstcps     "
+	echo -e "\033[5;71H$max_zstcps    "
+    echo -e "\033[6;56H$zdtcps    "
+	echo -e "\033[6;71H$max_zdtcps    "
+	echo -e "\033[7;56H$fscalls    "
+	echo -e "\033[7;71H$max_fscalls     "
+	sleep 1s
+done
