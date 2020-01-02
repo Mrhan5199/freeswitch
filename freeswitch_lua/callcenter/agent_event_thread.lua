@@ -49,6 +49,7 @@ while true do
 			local ccs = e:getHeader("Channel-Call-State");	
 			local dir = e:getHeader("Caller-Direction");
 			local req = false;
+			local agent_record = false;
 			local queueAndwered = false;
 			local urlparam = {};
 			local answerts = 0;
@@ -285,6 +286,18 @@ while true do
 					local uuid = e:getHeader("Caller-Unique-ID");
 					local otherNumber = e:getHeader("Caller-Caller-ID-Number");
 					local bleguuid = e:getHeader("Other-Leg-Unique-ID");
+					if string.match(agent,"^6[0-9][0-9][0-9]$") then
+						agent_record = true;
+					elseif string.match(agent,"^6[0-9][0-9][0-9]$") then
+						WebServiceURL = WebServiceURL_1
+						agent_record = true;
+					elseif string.match(agent,"^7[0-9][0-9][0-9]$") then
+						WebServiceURL = WebServiceURL_2
+						agent_record = true;
+					elseif string.match(agent,"^8[0-9][0-9][0-9]$") then
+						WebServiceURL = WebServiceURL_3
+						agent_record = true;
+					end				
 					if bleguuid ==  nil then
 						bleguuid = "";
 					end	
@@ -331,7 +344,19 @@ while true do
 					local agent = e:getHeader("Caller-Caller-ID-Number");
 					local uuid = e:getHeader("Caller-Unique-ID");
 					local otherNumber = e:getHeader("Caller-Destination-Number");
-					local bleguuid = e:getHeader("Other-Leg-Unique-ID");					
+					local bleguuid = e:getHeader("Other-Leg-Unique-ID");
+					if string.match(agent,"^6[0-9][0-9][0-9]$") then
+						agent_record = true;
+					elseif string.match(agent,"^6[0-9][0-9][0-9]$") then
+						WebServiceURL = WebServiceURL_1
+						agent_record = true;
+					elseif string.match(agent,"^7[0-9][0-9][0-9]$") then
+						WebServiceURL = WebServiceURL_2
+						agent_record = true;
+					elseif string.match(agent,"^8[0-9][0-9][0-9]$") then
+						WebServiceURL = WebServiceURL_3
+						agent_record = true;
+					end				
 					if bleguuid ==  nil then
 						bleguuid = "";
 					end	
@@ -376,13 +401,13 @@ while true do
 			end
 			
 			if req and ccs == "ACTIVE" and EnableRecord and e:getHeader("Caller-Caller-ID-Name") ~= "zswitch_callcenter_agent_spy" 
-				and 0 ~= answerts then
+				and 0 ~= answerts and agent_record then
 				local path =  rootdir..RecoardPath..os.date("%Y-%m-%d",answerts/1000000).."/"..urlparam["agent"].."/";
 				recfile = path..urlparam["UUID"].."_"..urlparam["agent"].."_"..urlparam["otherNumber"].."_"..os.date("%Y%m%d%H%M%S",answerts/1000000)..".wav";
 				api:execute("uuid_record",urlparam["UUID"].." start "..recfile);
 			end
 	
-			if req then
+			if req and agent_record then
 				local code,msg,data = request_http(WebServiceURL,urlparam);
 				if code ==nil or code ~= 0 then
 					if msg ~= nil then
