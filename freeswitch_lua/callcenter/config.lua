@@ -2,8 +2,6 @@
 --webservice url
 WebServiceURL = "http://127.0.0.1/zsitsms121/webservices/callcenter.php";
 WebServiceURL_1 = "http://127.0.0.1/zsitsms121/webservices/callcenter.php"; 
-WebServiceURL_2 = "http://127.0.0.1/zsitsms121/webservices/callcenter.php"; 
-WebServiceURL_3 = "http://127.0.0.1/zsitsms121/webservices/callcenter.php"; 
 --agent register sip interface
 AgentSipIf = "sofia/internal";
 --extent agent sip interface
