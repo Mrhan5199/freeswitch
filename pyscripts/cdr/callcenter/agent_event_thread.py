@@ -152,7 +152,7 @@ def runtime(args):
                 result = function.request_put(callcenter_init.WebServiceURL, urlparam, msg)
                 if result != "success":
                     freeswitch.consoleLog("ERR","\n"+msg+"\n")
-            freeswitch.msleep(200)
+        freeswitch.msleep(200)
     freeswitch.consoleLog("INFO","\nagent event thread exit!\n")
 
 	
