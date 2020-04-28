@@ -14,6 +14,8 @@ from django.http import JsonResponse
 from rest_framework.response import Response
 import datetime, time
 from django.shortcuts import get_object_or_404
+from rest_framework.decorators import action
+
 # Create your views here.
 
 class CdrViewSet(viewsets.ModelViewSet):
@@ -28,23 +30,12 @@ class CdrViewSet(viewsets.ModelViewSet):
 
     def create(self, request):
         data = request.data.copy()
-        # if data.get('action','') == "AgentCallinRinging":
         if data['action'] == "AgentCallinRinging":
-            data['bleg_uuid'] = data['blegUUID']
-            data['queue'] = data['queue']
-            data['agent_name'] = data['agent']
-            data['other_number'] = data['otherNumber']
-            data['uuid'] = data['UUID']
-            data['create_datetime'] = self.format_time(data['startTime'])
+            data['created_datetime'] = self.format_time(data['created_datetime'])
 
         if data['action'] == "AgentCalloutRinging":
-            data['bleg_uuid'] = data['blegUUID']
-            data['queue'] = data['queue']
-            data['agent_name'] = data['agent']
-            data['other_number'] = data['otherNumber']
-            data['uuid'] = data['UUID']
-            data['create_datetime'] = self.format_time(data['startTime'])
-            data['dir'] = "callout"
+            data['created_datetime'] = self.format_time(data['created_datetime'])
+            data['direction'] = "callout"
         serializer = CdrSerializers(data=data)
         if serializer.is_valid():
             serializer.save()
@@ -52,69 +43,45 @@ class CdrViewSet(viewsets.ModelViewSet):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def update(self, request, pk):
-        cdr = get_object_or_404(Cdr, pk=pk)
+    @action(methods=['put'], detail=False, url_path='update-data')
+    def update_data(self, request):
         data = request.data.copy()
+        cdr = Cdr.objects.filter(agent_name=data['agent_name']).order_by('-id').first()
         if data['action'] == "AgentCallinAndwered":
-            data['create_datetime'] = self.format_time(data['startTime'])
-            data['answered_datetime'] = self.format_time(data['answerTime'])
-            data['queue'] = data['queue']
-            data['agent_name'] = data['agent']
-            data['uuid'] = data['UUID']
-            data['other_number'] = data['otherNumber']
-            data['bleg_uuid'] = data['blegUUID']
+            data['created_datetime'] = self.format_time(data['created_datetime'])
+            data['answered_datetime'] = self.format_time(data['answered_datetime'])
 
         if data['action'] == "AgentCalloutAndwered":
-            data['create_datetime'] = self.format_time(data['startTime'])
-            data['answered_datetime'] = self.format_time(data['answerTime'])
-            data['queue'] = data['queue']
-            data['agent_name'] = data['agent']
-            data['uuid'] = data['UUID']
-            data['other_number'] = data['otherNumber']
-            data['bleg_uuid'] = data['blegUUID']
-            data['dir'] = "callout"
+            data['created_datetime'] = self.format_time(data['created_datetime'])
+            data['answered_datetime'] = self.format_time(data['answered_datetime'])
+            data['direction'] = "callout"
                   
         if data['action'] == "AgentCallinHangup":
-            data['answered_datetime'] = self.format_time(data['answerTime'])
-            datat['uuid'] = data['UUID']
-            data['agent_name'] = data['agent']
-            data['create_datetime'] = self.format_time(data['startTime'])
-            data['queue'] = data['queue']
-            data['other_number'] = data['otherNumber']
-            data['hangup_cause'] = data['hangupCase']
-            data['hangup_datetime'] = self.format_time(data['hangupTime'])
-            data['bleg_uuid'] = data['blegUUID']
-            data['toltal_timed'] = str(self.format_time(data['hangupTime']) - self.format_time(data['startTime']))
-            data['talk_timed'] = str(self.format_time(data['hangupTime']) - self.format_time(data['answerTime']))
+            data['answered_datetime'] = self.format_time(data['answered_datetime'])
+            data['created_datetime'] = self.format_time(data['created_datetime'])
+            data['hangup_datetime'] = self.format_time(data['hangup_datetime'])
+            data['toltal_timed'] = str(data['hangup_datetime'] - data['created_datetime'])
+            data['talk_timed'] = str(data['hangup_datetime'] -  data['answered_datetime'])
 
         if data['action'] == "AgentCalloutHangup":
-            data['answered_datetime'] = self.format_time(data['answerTime'])
-            data['uuid'] = data['UUID']
-            data['agent_name'] = data['agent']
-            data['create_datetime'] = self.format_time(data['startTime'])
-            data['queue'] = data['queue']
-            data['other_number'] = data['otherNumber']
-            data['hangup_cause'] = data['hangupCase']
-            data['hangup_datetime'] = self.format_time(data['hangupTime'])
-            data['bleg_uuid'] = data['blegUUID']
-            data['dir'] = "callout"
-            data['toltal_timed'] = str(self.format_time(data['hangupTime']) - self.format_time(data['startTime']))
-            data['talk_timed'] = str(self.format_time(data['hangupTime']) - self.format_time(data['answerTime']))
-            print (data['toltal_timed'])
-            print (data['talk_timed'])
+            data['answered_datetime'] = self.format_time(data['answered_datetime'])
+            data['created_datetime'] = self.format_time(data['created_datetime'])
+            data['hangup_datetime'] = self.format_time(data['hangup_datetime'])
+            data['direction'] = "callout"
+            data['toltal_timed'] = str(data['hangup_datetime'] - data['created_datetime'])
+            data['talk_timed'] = str(data['hangup_datetime'] -  data['answered_datetime'])
         serializer = CdrSerializers(instance=cdr, data=data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data,status=status.HTTP_200_OK)
-            
+            return JsonResponse({"result":"success"})
         else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({"result":"failed"})
 
     def list(self, request):
         value = request.GET.get('action')
         if value == "InitSystem":
             return JsonResponse({"result":"success"})
         else:
-            return JsonResponse({"result":"error"})
+            return JsonResponse({"result":"failed"})
 
 

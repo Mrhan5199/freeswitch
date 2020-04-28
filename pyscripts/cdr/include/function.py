@@ -1,7 +1,8 @@
+# -*- coding: UTF-8 -*-
 import freeswitch
 import json
 import time
-
+import datetime
 
 
 def request_get(url,params):
@@ -20,14 +21,14 @@ def request_post(url, params):
     result = api.execute("curl",url+" content-type application/json "+" post "+urlparams)
     return result
 
-def request_put(url, params, pid):
+def request_put(url, params):
     api = freeswitch.API()
     urlparams = json.dumps(params).replace(': ',':').replace(', ',',')
-    result = api.execute("curl",url+pid+"/"+" content-type application/json "+" put "+urlparams)
-    if not result:
-        msg = "failed!"
-    else:
+    result = api.execute("curl",url+"update-data"+"/"+" content-type application/json "+" put "+urlparams)
+    if result and json.loads(result)['result'] == "success":
         msg = "success"
+    else:
+        msg = "failed"
     return msg
 
 def format_unixtime_from_sec(timestamp):

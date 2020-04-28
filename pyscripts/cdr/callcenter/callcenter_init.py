@@ -22,6 +22,7 @@ def runtime(args):
     if msg:
         api.execute("pyrun","callcenter.agent_event_thread")
         freeswitch.consoleLog("INFO","\ncallcenter initializ success!\n")
+        return
     else:
         freeswitch.consoleLog("ERR","\nCallcenter initialize failed!\n")
         return

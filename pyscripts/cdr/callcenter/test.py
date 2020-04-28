@@ -1,2 +1,7 @@
-if 1：
-print ("111")
+a = "false"
+if not a:
+    print("111")
+elif a == "false":
+    print("3333")
+else:
+    print("22")
