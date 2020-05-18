@@ -51,7 +51,7 @@ def runtime(args):
                 put = False
                 able = False
             #-------呼出---------
-            if re.match(callcenter_init.AgentSipIf,ch) and direction =="inbound":
+            if ch != None and re.match(callcenter_init.AgentSipIf,ch) and direction =="inbound":
                 #freeswitch.consoleLog("info",e.serialize("text"))
                 agent = e.getHeader("Caller-Caller-ID-Number")
                 uuid = e.getHeader("Caller-Unique-ID")
@@ -98,7 +98,7 @@ def runtime(args):
                             urlparam["answered_datetime"] = urlparam["hangup_datetime"]
                         put = True
              #-------呼入---------
-            elif re.match(callcenter_init.AgentSipIf,ch) and direction =="outbound":
+            elif ch != None and re.match(callcenter_init.AgentSipIf,ch) and direction =="outbound":
                 #freeswitch.consoleLog("info",e.serialize("text"))
                 agent = e.getHeader("Caller-Callee-ID-Number")
                 uuid = e.getHeader("Caller-Unique-ID")
