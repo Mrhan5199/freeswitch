@@ -1,7 +1,6 @@
 --callcenter config
 --webservice url
-WebServiceURL = "http://127.0.0.1/zsitsms121/webservices/callcenter.php";
-WebServiceURL_1 = "http://127.0.0.1/zsitsms121/webservices/callcenter.php"; 
+WebServiceURL = "http://192.168.2.99:8000/webservices/";
 --agent register sip interface
 AgentSipIf = "sofia/internal";
 --extent agent sip interface

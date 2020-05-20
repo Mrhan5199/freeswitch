@@ -73,20 +73,51 @@ end
 
 function request_http(url,params)
 	local par = {};
-	for	k , v in pairs(params) do
-		if v~=nil then
-			par[k] = v;
-		end
+	for     k , v in pairs(params) do
+			if v~=nil then
+					par[k] = v;
+			end
 	end
 	local api = freeswitch.API();
 	local urlparam = urlParamEncode(params);
 	local result = api:execute("curl",url.."?"..urlparam);
-	local code,msg,data = respone_decode(result);
-	if code == nil then
-		code = "-1";
-		msg = "system error!";
-	end	
-	return tonumber(code),msg,data;
+	local k = string.match(result, "%a+")
+	if k == "success" then
+		return true;
+	end
+	return false;
+end
+
+function post_http(url,params)
+	local par = {};
+	for     k , v in pairs(params) do
+			if v~=nil then
+					par[k] = v;
+			end
+	end
+	local api = freeswitch.API();
+	local urlparam = urlParamEncode(params);
+	local result = api:execute("curl",url.." content-type application/x-www-form-urlencoded ".." post "..urlparam);
+	return result;
+end
+
+function put_http(url,params)
+	local par = {};
+	for     k , v in pairs(params) do
+			if v~=nil then
+					par[k] = v;
+			end
+	end
+	local api = freeswitch.API();
+	local urlparam = urlParamEncode(params);
+	local result = api:execute("curl",url.."update-data".."/".." content-type application/x-www-form-urlencoded ".." put "..urlparam);
+	local k = string.match(result, "%a+")
+	if k == "success" then
+			msg = "success"
+	else
+			msg = "failed"
+	end
+	return msg;
 end
 
 function md5(str)
