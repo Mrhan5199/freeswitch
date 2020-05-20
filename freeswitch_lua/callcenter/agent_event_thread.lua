@@ -77,7 +77,7 @@ while true do
 							urlparam["answered_datetime"] = formatUNIXTimeFromUS(e:getHeader("Caller-Channel-Answered-Time"));
 							answerts = e:getHeader("Caller-Channel-Answered-Time");	
 							put = true;					
-						elseif ccs == "HANGUP" and occs ~= "RINGING" then						    
+						elseif ccs == "HANGUP" then						    
 							urlparam["action"] = "AgentCallinHangup";
 							urlparam["agent_name"] = agent_name;			
 							urlparam["uuid"] = uuid;			
@@ -128,7 +128,7 @@ while true do
 							urlparam["answered_datetime"] = formatUNIXTimeFromUS(e:getHeader("Caller-Channel-Answered-Time"));
 							answerts = e:getHeader("Caller-Channel-Answered-Time");
 							put = true;						
-						elseif ccs == "HANGUP" and occs ~= "RINGING" then
+						elseif ccs == "HANGUP" then
 							urlparam["action"] = "AgentCalloutHangup";
 							urlparam["agent_name"] = agent_name;		
 							urlparam["uuid"] = uuid;			
