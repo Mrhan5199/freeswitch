@@ -16,6 +16,10 @@ AgentSipIf = config.get('webservice', 'AgentSipIf')
 EnableRecord = config.getboolean('webservice', 'EnableRecord')
 RecoardPath = config.get('webservice', 'RecoardPath')
 Agent_record = config.get('webservice','Agent_record')
+Host = config.get('webservice','Host')
+Port = config.get('webservice','Port')
+Password = config.get('webservice','Password')
+
 
 def runtime(args):
     freeswitch.msleep(2000)
@@ -29,7 +33,7 @@ def runtime(args):
         freeswitch.consoleLog("ERR","\nCallcenter initializ  failed!\n")
         return
     api = freeswitch.API()
-    con = ESLconnection("127.0.0.1","8024","Clue1234")
+    con = ESLconnection(Host,Port,Password)
     con.events("plain", "CHANNEL_CALLSTATE")
     if con.connected:
         while True:
@@ -153,4 +157,7 @@ def runtime(args):
                 if result != "success":
                     freeswitch.consoleLog("ERR","\n"+result+"\n")
         freeswitch.msleep(200)
+    else:
+        freeswitch.consoleLog("ERR","\nconnect esl failed\n")
+        return
     freeswitch.consoleLog("INFO","\nagent event thread exit!\n")
