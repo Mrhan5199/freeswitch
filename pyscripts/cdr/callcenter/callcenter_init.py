@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 import freeswitch
 import ConfigParser
 import sys
@@ -28,7 +29,6 @@ def runtime(args):
         freeswitch.consoleLog("ERR","\nCallcenter initializ  failed!\n")
         return
     api = freeswitch.API()
-    freeswitch.consoleLog("INFO","\nStart listening to CHANNEL_CALLSTATE events\n")
     con = ESLconnection("127.0.0.1","8024","Clue1234")
     con.events("plain", "CHANNEL_CALLSTATE")
     if con.connected:
