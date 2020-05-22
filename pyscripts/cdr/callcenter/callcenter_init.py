@@ -4,8 +4,8 @@ import ConfigParser
 import sys
 import re
 import time
+import ESL
 from include import function
-from ESL import *
 
 #config.ini
 rootdir = freeswitch.getGlobalVariable("base_dir")
@@ -33,7 +33,7 @@ def runtime(args):
         freeswitch.consoleLog("ERR","\nCallcenter initializ  failed!\n")
         return
     api = freeswitch.API()
-    con = ESLconnection(Host,Port,Password)
+    con = ESL.ESLconnection(Host,Port,Password)
     con.events("plain", "CHANNEL_CALLSTATE")
     if con.connected:
         while True:
