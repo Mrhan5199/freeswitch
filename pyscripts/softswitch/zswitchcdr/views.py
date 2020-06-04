@@ -73,15 +73,19 @@ class CdrViewSet(viewsets.ModelViewSet):
         serializer = CdrSerializers(instance=cdr, data=data)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse({"result":"success"})
+            return JsonResponse({"result":"success"}) #py
+            #return Response("success")#lua
         else:
-            return JsonResponse({"result":"failed"})
+            return JsonResponse({"result":"failed"}) #py
+            #return Response("failed") #lua
 
     def list(self, request):
         value = request.GET.get('action')
         if value == "InitSystem":
-            return JsonResponse({"result":"success"})
+            return JsonResponse({"result":"success"}) #py
+            #return Response('success')#lua
         else:
-            return JsonResponse({"result":"failed"})
+            return JsonResponse({"result":"failed"}) #py
+            #return Response("failed") #lua
 
 

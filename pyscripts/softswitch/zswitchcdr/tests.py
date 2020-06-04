@@ -1,4 +1,6 @@
 from django.test import TestCase
 
-# Create your tests here.
-print ("1111")
+import re
+k = ksds1234
+e.search('(\w+)(\d+)',kif re.search('(\w+)(\d+)',kif re.search('(\w+)(\d+)',kif re.search('(\w+)(\d+)',kif re.search('(\w+)(\d+)',kif re.search('(\w+)(\d+)',kif re.search('(\w+)(\d+)',kif re.search('(\w+)(\d+)',kif re.search('(\w+)(\d+)',kif re.search('(\w+)(\d+)',kif re.search('(\w+)(\d+)',kif re.search('(\w+)(\d+)',kif re.search('(\w+)(\d+)',kif re.search('(\w+)(\d+)',kif re.search('(\w+)(\d+)',kif re.search('(\w+)(\d+)',kif re.search('(\w+)(\d+)',kif re.search('(\w+)(\d+)',kif re.search('(\w+)(\d+)',k
+    
