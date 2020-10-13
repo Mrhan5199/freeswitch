@@ -1,0 +1,62 @@
+2020-06-22 02:25:43.959786 [INFO] switch_cpp.cpp:1328 Event-Subclass: sofia%3A%3Aregister
+Event-Name: CUSTOM
+Core-UUID: cbdfe9c4-b450-11ea-84f6-87f18461f106
+FreeSWITCH-Hostname: localhost.localdomain
+FreeSWITCH-Switchname: localhost.localdomain
+FreeSWITCH-IPv4: 192.168.2.91
+FreeSWITCH-IPv6: fe80%3A%3A4263%3Acf2d%3Afbdd%3A566
+Event-Date-Local: 2020-06-22%2002%3A25%3A43
+Event-Date-GMT: Mon,%2022%20Jun%202020%2006%3A25%3A43%20GMT
+Event-Date-Timestamp: 1592807143959786
+Event-Calling-File: sofia_reg.c
+Event-Calling-Function: sofia_reg_handle_register_token
+Event-Calling-Line-Number: 1925
+Event-Sequence: 610
+profile-name: internal
+from-user: 6001
+from-host: 192.168.2.91
+presence-hosts: 192.168.2.91,192.168.2.91
+contact: %226001%22%20%3Csip%3A6001%40192.168.2.99%3A59304%3Brinstance%3D659bbc63fb8f1739%3E
+call-id: Y2JjYzhiMjQ4YzE0ZTVhZmU2OTdiMTAwODkyNzFhMjU.
+rpid: unknown
+status: Registered(UDP)
+expires: 3600
+to-user: 6001
+to-host: 192.168.2.91
+network-ip: 192.168.2.99
+network-port: 59304
+username: 6001
+realm: 192.168.2.91
+user-agent: eyeBeam%20release%201011d%20stamp%2040820
+
+
+
+2020-06-22 02:25:43.959786 [INFO] switch_cpp.cpp:1328 Event-Subclass: sofia%3A%3Aregister_attempt
+Event-Name: CUSTOM
+Core-UUID: cbdfe9c4-b450-11ea-84f6-87f18461f106
+FreeSWITCH-Hostname: localhost.localdomain
+FreeSWITCH-Switchname: localhost.localdomain
+FreeSWITCH-IPv4: 192.168.2.91
+FreeSWITCH-IPv6: fe80%3A%3A4263%3Acf2d%3Afbdd%3A566
+Event-Date-Local: 2020-06-22%2002%3A25%3A43
+Event-Date-GMT: Mon,%2022%20Jun%202020%2006%3A25%3A43%20GMT
+Event-Date-Timestamp: 1592807143959786
+Event-Calling-File: sofia_reg.c
+Event-Calling-Function: sofia_reg_handle_register_token
+Event-Calling-Line-Number: 1518
+Event-Sequence: 609
+profile-name: internal
+from-user: 6001
+from-host: 192.168.2.91
+contact: %226001%22%20%3Csip%3A6001%40192.168.2.99%3A59304%3Brinstance%3D659bbc63fb8f1739%3E
+rpid: unknown
+status: Registered(UDP)
+expires: 3600
+to-user: 6001
+to-host: 192.168.2.91
+network-ip: 192.168.2.99
+network-port: 59304
+username: 6001
+realm: 192.168.2.91
+user-agent: eyeBeam%20release%201011d%20stamp%2040820
+auth-result: RENEWED
