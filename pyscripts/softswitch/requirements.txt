@@ -1,7 +1,7 @@
 # typing==3.6.6
 django==2.1.7
 django-filter==2.1.0
-djangorestframework==3.9.1
+djangorestframework==3.11.2
 djangorestframework-jwt==1.11.0
 # djangorestframework-bulk==0.2.1
 # South==1.0.2
